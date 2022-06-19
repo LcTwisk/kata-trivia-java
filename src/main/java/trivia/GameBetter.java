@@ -35,7 +35,7 @@ public class GameBetter implements IGame {
       }
    }
 
-   public boolean wasCorrectlyAnswered() {
+   public boolean processCorrectAnswer() {
       if (currentPlayer().isInPrison()) {
          if (currentPlayer().isEligibleToGetOutOfPrison()) {
             awardRightAnswer();
@@ -54,7 +54,7 @@ public class GameBetter implements IGame {
       }
    }
 
-   public boolean wrongAnswer() {
+   public boolean processWrongAnswer() {
       System.out.println("Question was incorrectly answered");
       System.out.println(currentPlayer().getName() + " was sent to the penalty box");
 
