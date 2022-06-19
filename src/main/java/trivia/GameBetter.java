@@ -5,6 +5,9 @@ import java.util.LinkedList;
 
 // REFACTOR ME
 public class GameBetter implements IGame {
+   private static final int BOARD_TILES = 12;
+   private static final int COIN_TARGET = 6;
+   private static final int CARDS_PER_CATEGORY = 50;
    private ArrayList<Player> players = new ArrayList();
 
    private LinkedList popQuestions = new LinkedList();
@@ -15,7 +18,7 @@ public class GameBetter implements IGame {
    private int currentPlayerIndex = 0;
 
    public GameBetter() {
-      for (int i = 0; i < 50; i++) {
+      for (int i = 0; i < CARDS_PER_CATEGORY; i++) {
          popQuestions.addLast("Pop Question " + i);
          scienceQuestions.addLast(("Science Question " + i));
          sportsQuestions.addLast(("Sports Question " + i));
@@ -115,7 +118,7 @@ public class GameBetter implements IGame {
    }
 
    private boolean didPlayerWin() {
-      return !(currentPlayer().getCoins() == 6);
+      return !(currentPlayer().getCoins() == COIN_TARGET);
    }
 
    private Player currentPlayer() {
@@ -127,7 +130,7 @@ public class GameBetter implements IGame {
    }
 
    private void updatePlace(int roll) {
-      int newPlace = (currentPlayer().getPlace() + roll) % 12;
+      int newPlace = (currentPlayer().getPlace() + roll) % BOARD_TILES;
       currentPlayer().setPlace(newPlace);
 
       System.out.println(currentPlayer().getName()
