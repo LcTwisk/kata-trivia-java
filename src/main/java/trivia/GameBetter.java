@@ -13,7 +13,6 @@ public class GameBetter implements IGame {
    private LinkedList rockQuestions = new LinkedList();
 
    private int currentPlayerIndex = 0;
-   private boolean isGettingOutOfPenaltyBox;
 
    public GameBetter() {
       for (int i = 0; i < 50; i++) {
@@ -37,14 +36,14 @@ public class GameBetter implements IGame {
 
       if (currentPlayer().isInPrison()) {
          if (roll % 2 != 0) {
-            isGettingOutOfPenaltyBox = true;
+            currentPlayer().setIsEligibleToGetOutOfPrison(true);
 
             System.out.println(currentPlayer().getName() + " is getting out of the penalty box");
 
             performMove(roll);
          } else {
             System.out.println(currentPlayer().getName() + " is not getting out of the penalty box");
-            isGettingOutOfPenaltyBox = false;
+            currentPlayer().setIsEligibleToGetOutOfPrison(false);
          }
       } else {
          performMove(roll);
@@ -53,7 +52,7 @@ public class GameBetter implements IGame {
 
    public boolean wasCorrectlyAnswered() {
       if (currentPlayer().isInPrison()) {
-         if (isGettingOutOfPenaltyBox) {
+         if (currentPlayer().isEligibleToGetOutOfPrison()) {
             System.out.println("Answer was correct!!!!");
             currentPlayer().addCoin();
             System.out.println(currentPlayer().getName()

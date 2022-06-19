@@ -5,6 +5,7 @@ public class Player {
     private int coins = 0;
     private int place = 0;
     private boolean isInPrison = false;
+    private boolean isEligibleToGetOutOfPrison = false;
 
     public Player(String name) {
         this.name = name;
@@ -16,6 +17,10 @@ public class Player {
 
     public void sendToPrison() {
         isInPrison = true;
+    }
+
+    public void setIsEligibleToGetOutOfPrison(boolean isEligibleToGetOutOfPrison) {
+        this.isEligibleToGetOutOfPrison = isEligibleToGetOutOfPrison;
     }
 
     public void setPlace(int place) {
@@ -36,5 +41,9 @@ public class Player {
 
     public boolean isInPrison() {
         return isInPrison;
+    }
+
+    public boolean isEligibleToGetOutOfPrison() {
+        return isEligibleToGetOutOfPrison;
     }
 }
