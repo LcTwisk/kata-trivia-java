@@ -9,22 +9,8 @@ public class GameBetter implements IGame {
    private static final int COIN_TARGET = 6;
    private static final int CARDS_PER_CATEGORY = 50;
    private ArrayList<Player> players = new ArrayList();
-
-   private LinkedList popQuestions = new LinkedList();
-   private LinkedList scienceQuestions = new LinkedList();
-   private LinkedList sportsQuestions = new LinkedList();
-   private LinkedList rockQuestions = new LinkedList();
-
+   private CardDeck cardDeck = new CardDeck(QuestionCategory.values(), CARDS_PER_CATEGORY);
    private int currentPlayerIndex = 0;
-
-   public GameBetter() {
-      for (int i = 0; i < CARDS_PER_CATEGORY; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast(("Science Question " + i));
-         sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast(("Rock Question " + i));
-      }
-   }
 
    public boolean add(String playerName) {
       players.add(new Player(playerName));
@@ -95,16 +81,10 @@ public class GameBetter implements IGame {
    }
 
    private void requestQuestion() {
-      System.out.println("The category is " + currentCategory().toString());
-
-      if (currentCategory() == QuestionCategory.POP)
-         System.out.println(popQuestions.removeFirst());
-      if (currentCategory() == QuestionCategory.SCIENCE)
-         System.out.println(scienceQuestions.removeFirst());
-      if (currentCategory() == QuestionCategory.SPORTS)
-         System.out.println(sportsQuestions.removeFirst());
-      if (currentCategory() == QuestionCategory.ROCK)
-         System.out.println(rockQuestions.removeFirst());
+      QuestionCategory category = currentCategory();
+      String categoryName = category.toString();
+      System.out.println("The category is " + categoryName);
+      System.out.println(categoryName + " Question " + cardDeck.drawCard(category));
    }
 
 
