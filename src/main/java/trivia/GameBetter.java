@@ -37,9 +37,7 @@ public class GameBetter implements IGame {
       if (currentPlayer().isInPrison()) {
          if (roll % 2 != 0) {
             currentPlayer().setIsEligibleToGetOutOfPrison(true);
-
             System.out.println(currentPlayer().getName() + " is getting out of the penalty box");
-
             performMove(roll);
          } else {
             System.out.println(currentPlayer().getName() + " is not getting out of the penalty box");
@@ -53,36 +51,18 @@ public class GameBetter implements IGame {
    public boolean wasCorrectlyAnswered() {
       if (currentPlayer().isInPrison()) {
          if (currentPlayer().isEligibleToGetOutOfPrison()) {
-            System.out.println("Answer was correct!!!!");
-            currentPlayer().addCoin();
-            System.out.println(currentPlayer().getName()
-                    + " now has "
-                    + currentPlayer().getCoins()
-                    + " Gold Coins.");
-
+            awardRightAnswer();
             boolean winner = didPlayerWin();
             nextTurn();
-
             return winner;
          } else {
             nextTurn();
             return true;
          }
-
-
       } else {
-
-         System.out.println("Answer was correct!!!!");
-         currentPlayer().addCoin();
-         System.out.println(currentPlayer().getName()
-                 + " now has "
-                 + currentPlayer().getCoins()
-                 + " Gold Coins.");
-
+         awardRightAnswer();
          boolean winner = didPlayerWin();
-
          nextTurn();
-
          return winner;
       }
    }
@@ -95,6 +75,15 @@ public class GameBetter implements IGame {
       nextTurn();
 
       return true;
+   }
+
+   private void awardRightAnswer() {
+      System.out.println("Answer was correct!!!!");
+      currentPlayer().addCoin();
+      System.out.println(currentPlayer().getName()
+              + " now has "
+              + currentPlayer().getCoins()
+              + " Gold Coins.");
    }
 
    private void performMove(int roll) {
