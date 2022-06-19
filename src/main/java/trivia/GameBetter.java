@@ -95,25 +95,25 @@ public class GameBetter implements IGame {
    }
 
    private void requestQuestion() {
-      System.out.println("The category is " + currentCategory());
+      System.out.println("The category is " + currentCategory().toString());
 
-      if (currentCategory() == "Pop")
+      if (currentCategory() == QuestionCategory.POP)
          System.out.println(popQuestions.removeFirst());
-      if (currentCategory() == "Science")
+      if (currentCategory() == QuestionCategory.SCIENCE)
          System.out.println(scienceQuestions.removeFirst());
-      if (currentCategory() == "Sports")
+      if (currentCategory() == QuestionCategory.SPORTS)
          System.out.println(sportsQuestions.removeFirst());
-      if (currentCategory() == "Rock")
+      if (currentCategory() == QuestionCategory.ROCK)
          System.out.println(rockQuestions.removeFirst());
    }
 
 
-   private String currentCategory() {
+   private QuestionCategory currentCategory() {
       switch (currentPlayer().getPlace() % 4) {
-         case 0: return "Pop";
-         case 1: return "Science";
-         case 2: return "Sports";
-         default: return "Rock";
+         case 0: return QuestionCategory.POP;
+         case 1: return QuestionCategory.SCIENCE;
+         case 2: return QuestionCategory.SPORTS;
+         default: return QuestionCategory.ROCK;
       }
    }
 
