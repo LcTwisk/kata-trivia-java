@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 // REFACTOR ME
-public class GameBetter implements IGame {
+public final class GameBetter implements IGame {
    private static final int BOARD_TILES = 12;
    private static final int COIN_TARGET = 6;
    private ArrayList<Player> players = new ArrayList();

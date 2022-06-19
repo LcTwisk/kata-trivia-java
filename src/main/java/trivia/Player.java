@@ -1,6 +1,6 @@
 package trivia;
 
-public class Player {
+public final class Player {
     private String name;
     private int coins = 0;
     private int place = 0;
