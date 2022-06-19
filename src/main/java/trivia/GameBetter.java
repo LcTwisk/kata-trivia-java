@@ -73,7 +73,7 @@ public class GameBetter implements IGame {
 
       } else {
 
-         System.out.println("Answer was corrent!!!!");
+         System.out.println("Answer was correct!!!!");
          currentPlayer().addCoin();
          System.out.println(currentPlayer().getName()
                  + " now has "
@@ -91,8 +91,8 @@ public class GameBetter implements IGame {
    public boolean wrongAnswer() {
       System.out.println("Question was incorrectly answered");
       System.out.println(currentPlayer().getName() + " was sent to the penalty box");
-      currentPlayer().sendToPrison();
 
+      currentPlayer().sendToPrison();
       nextTurn();
 
       return true;
