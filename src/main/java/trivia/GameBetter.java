@@ -41,29 +41,14 @@ public class GameBetter implements IGame {
 
             System.out.println(currentPlayer().getName() + " is getting out of the penalty box");
 
-            updatePlace(roll);
-
-            System.out.println(currentPlayer().getName()
-                               + "'s new location is "
-                               + currentPlayer().getPlace());
-            System.out.println("The category is " + currentCategory());
-            askQuestion();
+            performMove(roll);
          } else {
             System.out.println(currentPlayer().getName() + " is not getting out of the penalty box");
             isGettingOutOfPenaltyBox = false;
          }
-
       } else {
-
-         updatePlace(roll);
-
-         System.out.println(currentPlayer().getName()
-                            + "'s new location is "
-                            + currentPlayer().getPlace());
-         System.out.println("The category is " + currentCategory());
-         askQuestion();
+         performMove(roll);
       }
-
    }
 
    public boolean wasCorrectlyAnswered() {
@@ -113,7 +98,14 @@ public class GameBetter implements IGame {
       return true;
    }
 
-   private void askQuestion() {
+   private void performMove(int roll) {
+      updatePlace(roll);
+      requestQuestion();
+   }
+
+   private void requestQuestion() {
+      System.out.println("The category is " + currentCategory());
+
       if (currentCategory() == "Pop")
          System.out.println(popQuestions.removeFirst());
       if (currentCategory() == "Science")
@@ -149,5 +141,9 @@ public class GameBetter implements IGame {
    private void updatePlace(int roll) {
       int newPlace = (currentPlayer().getPlace() + roll) % 12;
       currentPlayer().setPlace(newPlace);
+
+      System.out.println(currentPlayer().getName()
+              + "'s new location is "
+              + currentPlayer().getPlace());
    }
 }
