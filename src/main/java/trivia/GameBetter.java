@@ -7,25 +7,21 @@ import java.util.LinkedList;
 public class GameBetter implements IGame {
    private ArrayList<Player> players = new ArrayList();
 
-   LinkedList popQuestions = new LinkedList();
-   LinkedList scienceQuestions = new LinkedList();
-   LinkedList sportsQuestions = new LinkedList();
-   LinkedList rockQuestions = new LinkedList();
+   private LinkedList popQuestions = new LinkedList();
+   private LinkedList scienceQuestions = new LinkedList();
+   private LinkedList sportsQuestions = new LinkedList();
+   private LinkedList rockQuestions = new LinkedList();
 
-   int currentPlayerIndex = 0;
-   boolean isGettingOutOfPenaltyBox;
+   private int currentPlayerIndex = 0;
+   private boolean isGettingOutOfPenaltyBox;
 
    public GameBetter() {
       for (int i = 0; i < 50; i++) {
          popQuestions.addLast("Pop Question " + i);
          scienceQuestions.addLast(("Science Question " + i));
          sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast(createRockQuestion(i));
+         rockQuestions.addLast(("Rock Question " + i));
       }
-   }
-
-   public String createRockQuestion(int index) {
-      return "Rock Question " + index;
    }
 
    public boolean add(String playerName) {
@@ -70,6 +66,53 @@ public class GameBetter implements IGame {
 
    }
 
+   public boolean wasCorrectlyAnswered() {
+      if (currentPlayer().isInPrison()) {
+         if (isGettingOutOfPenaltyBox) {
+            System.out.println("Answer was correct!!!!");
+            currentPlayer().addCoin();
+            System.out.println(currentPlayer().getName()
+                    + " now has "
+                    + currentPlayer().getCoins()
+                    + " Gold Coins.");
+
+            boolean winner = didPlayerWin();
+            nextTurn();
+
+            return winner;
+         } else {
+            nextTurn();
+            return true;
+         }
+
+
+      } else {
+
+         System.out.println("Answer was corrent!!!!");
+         currentPlayer().addCoin();
+         System.out.println(currentPlayer().getName()
+                 + " now has "
+                 + currentPlayer().getCoins()
+                 + " Gold Coins.");
+
+         boolean winner = didPlayerWin();
+
+         nextTurn();
+
+         return winner;
+      }
+   }
+
+   public boolean wrongAnswer() {
+      System.out.println("Question was incorrectly answered");
+      System.out.println(currentPlayer().getName() + " was sent to the penalty box");
+      currentPlayer().sendToPrison();
+
+      nextTurn();
+
+      return true;
+   }
+
    private void askQuestion() {
       if (currentCategory() == "Pop")
          System.out.println(popQuestions.removeFirst());
@@ -90,54 +133,6 @@ public class GameBetter implements IGame {
          default: return "Rock";
       }
    }
-
-   public boolean wasCorrectlyAnswered() {
-      if (currentPlayer().isInPrison()) {
-         if (isGettingOutOfPenaltyBox) {
-            System.out.println("Answer was correct!!!!");
-            currentPlayer().addCoin();
-            System.out.println(currentPlayer().getName()
-                               + " now has "
-                               + currentPlayer().getCoins()
-                               + " Gold Coins.");
-
-            boolean winner = didPlayerWin();
-            nextTurn();
-
-            return winner;
-         } else {
-            nextTurn();
-            return true;
-         }
-
-
-      } else {
-
-         System.out.println("Answer was corrent!!!!");
-         currentPlayer().addCoin();
-         System.out.println(currentPlayer().getName()
-                            + " now has "
-                            + currentPlayer().getCoins()
-                            + " Gold Coins.");
-
-         boolean winner = didPlayerWin();
-
-         nextTurn();
-
-         return winner;
-      }
-   }
-
-   public boolean wrongAnswer() {
-      System.out.println("Question was incorrectly answered");
-      System.out.println(currentPlayer().getName() + " was sent to the penalty box");
-      currentPlayer().sendToPrison();
-
-      nextTurn();
-
-      return true;
-   }
-
 
    private boolean didPlayerWin() {
       return !(currentPlayer().getCoins() == 6);
