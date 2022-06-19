@@ -148,13 +148,11 @@ public class GameBetter implements IGame {
    }
 
    private void nextTurn() {
-      currentPlayerIndex++;
-      if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+      currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
    }
 
    private void updatePlace(int roll) {
-      //Todo update place in one go
-      currentPlayer().setPlace(currentPlayer().getPlace() + roll);
-      if (currentPlayer().getPlace() > 11) currentPlayer().setPlace(currentPlayer().getPlace() - 12);
+      int newPlace = (currentPlayer().getPlace() + roll) % 12;
+      currentPlayer().setPlace(newPlace);
    }
 }
