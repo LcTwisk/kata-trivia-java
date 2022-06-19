@@ -59,8 +59,8 @@ public class GameBetter implements IGame {
             isGettingOutOfPenaltyBox = true;
 
             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+
+            updatePlace(roll);
 
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
@@ -74,8 +74,7 @@ public class GameBetter implements IGame {
 
       } else {
 
-         places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+         updatePlace(roll);
 
          System.out.println(players.get(currentPlayer)
                             + "'s new location is "
@@ -122,13 +121,11 @@ public class GameBetter implements IGame {
                                + " Gold Coins.");
 
             boolean winner = didPlayerWin();
-            currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
+            nextTurn();
 
             return winner;
          } else {
-            currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
+            nextTurn();
             return true;
          }
 
@@ -143,8 +140,8 @@ public class GameBetter implements IGame {
                             + " Gold Coins.");
 
          boolean winner = didPlayerWin();
-         currentPlayer++;
-         if (currentPlayer == players.size()) currentPlayer = 0;
+
+         nextTurn();
 
          return winner;
       }
@@ -155,13 +152,23 @@ public class GameBetter implements IGame {
       System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
       inPenaltyBox[currentPlayer] = true;
 
-      currentPlayer++;
-      if (currentPlayer == players.size()) currentPlayer = 0;
+      nextTurn();
+
       return true;
    }
 
 
    private boolean didPlayerWin() {
       return !(purses[currentPlayer] == 6);
+   }
+
+   private void nextTurn() {
+      currentPlayer++;
+      if (currentPlayer == players.size()) currentPlayer = 0;
+   }
+
+   private void updatePlace(int roll) {
+      places[currentPlayer] = places[currentPlayer] + roll;
+      if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
    }
 }
