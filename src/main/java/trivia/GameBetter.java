@@ -7,9 +7,8 @@ import java.util.LinkedList;
 public class GameBetter implements IGame {
    private static final int BOARD_TILES = 12;
    private static final int COIN_TARGET = 6;
-   private static final int CARDS_PER_CATEGORY = 50;
    private ArrayList<Player> players = new ArrayList();
-   private CardDeck cardDeck = new CardDeck(QuestionCategory.values(), CARDS_PER_CATEGORY);
+   private CardDeck cardDeck = new CardDeck(QuestionCategory.values());
    private int currentPlayerIndex = 0;
 
    public boolean add(String playerName) {
